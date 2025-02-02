@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 import { ArrowRight } from 'lucide-react';
-import girlpic from '../assets/girl.png';
+import girlpic from '../../assets/girl.png';
 
 const Header = () => {
   return (
