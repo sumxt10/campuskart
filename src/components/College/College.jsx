@@ -1,146 +1,46 @@
-import React from 'react';
-import './College.css';
-import { ChevronRight } from 'lucide-react';
+import { useEffect, useState } from "react";
+import "./College.css";
+import { ChevronRight } from "lucide-react";
+import { fetchIndiaUniversities } from "../../services/collegeApi";
 
 const College = () => {
-  const popularColleges = [
-    {
-      name: 'Marvadi University',
-      location: 'Rajkot',
-      logo: '',
-      courses: ['B.Tech', 'M.Tech', 'BCA', 'MCA', 'MBA'],
-      moreCount: 7
-    },
-    {
-      name: 'R.K University',
-      location: 'Rajkot',
-      logo: '',
-      courses: ['B.Tech', 'M.Tech', 'BBA', 'BCA'],
-      moreCount: 8
-    },
-    {
-      name: 'Darshan University',
-      location: 'Rajkot',
-      logo: '',
-      courses: ['B.Tech', 'M.Tech', 'MBA', 'BCA', 'Commerce'],
-      moreCount: 8
-    },
-    {
-      name: 'Atmiya University',
-      location: 'Rajkot',
-      logo: '',
-      courses: ['Commerce', 'Arts', 'Ph.D.', 'B.Com', 'BBA'],
-      moreCount: 4
-    },
-    {
-      name: 'Christ College',
-      location: 'Rajkot',
-      logo: '',
-      courses: ['BA English', 'Bsc', 'B.Tech', 'Msc', 'BBA', 'BCA'],
-      moreCount: 4
-    },
-    {
-      name: 'B.G Garaiya',
-      location: 'Rajkot',
-      logo: '',
-      courses: ['Medical', 'D.Pharma', 'MBBS', 'Pharmacy'],
-      moreCount: 10
-    }
-  ];
+  const [colleges, setColleges] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const courseCategories = [
-    {
-      title: 'B.Tech',
-      icon: '💻',
-      count: '180+',
-      bgColor: 'light-blue'
-    },
-    {
-      title: 'MBA',
-      icon: '💼',
-      count: '100+',
-      bgColor: 'light-yellow'
-    },
-    {
-      title: 'Medical',
-      icon: '⚕️',
-      count: '150+',
-      bgColor: 'light-red'
-    },
-    {
-      title: 'Design',
-      icon: '✏️',
-      count: '70+',
-      bgColor: 'light-green'
-    },
-    {
-      title: 'Accounts',
-      icon: '📊',
-      count: '90+',
-      bgColor: 'light-purple'
-    },
-    {
-      title: 'Science',
-      icon: '🔬',
-      count: '100+',
-      bgColor: 'light-cyan'
-    }
-  ];
+  useEffect(() => {
+    fetchIndiaUniversities()
+      .then((data) => setColleges(data.slice(0, 6)))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div className="college-container">
       <div className="section-header">
-        <h2>Popular Colleges In Your City</h2>
-        <a href="#" className="view-all">
-          View All Courses <ChevronRight size={20} />
+        <h2>Top Universities in India</h2>
+        <a className="view-all">
+          View All <ChevronRight size={18} />
         </a>
       </div>
 
-      <div className="colleges-grid">
-        {popularColleges.map((college, index) => (
-          <div key={index} className="college-card">
-            <div className="college-header">
-              <img src={college.logo} alt={college.name} className="college-logo" />
-              <div className="college-info">
-                <h3>{college.name}</h3>
-                <p>{college.location}</p>
+      {loading ? (
+        <p className="loading">Loading universities...</p>
+      ) : (
+        <div className="colleges-grid">
+          {colleges.map((c, i) => (
+            <div key={i} className="college-card">
+              <div className="college-header">
+                <div className="placeholder-logo">
+                  {c.name.charAt(0)}
+                </div>
+                <div className="college-info">
+                  <h3>{c.name}</h3>
+                  <p>{c.country}</p>
+                </div>
               </div>
             </div>
-            <div className="courses-tags">
-              {college.courses.map((course, idx) => (
-                <span key={idx} className="course-tag">{course}</span>
-              ))}
-              {college.moreCount > 0 && (
-                <span className="more-tag">+{college.moreCount} more</span>
-              )}
-            </div>
-          </div>
-        ))}
-        <div className="more-colleges">+22 more</div>
-      </div>
-
-      <div className="section-header">
-        <h2>Choose Colleges By The Courses Provided</h2>
-        <p className="section-subtitle">
-          Browse top class courses by browsing our category which will be more easy for you.
-        </p>
-        <a href="#" className="view-all">
-          View All Courses <ChevronRight size={20} />
-        </a>
-      </div>
-
-      <div className="categories-grid">
-        {courseCategories.map((category, index) => (
-          <div key={index} className={`category-card ${category.bgColor}`}>
-            <span className="category-icon">{category.icon}</span>
-            <div className="category-info">
-              <h3>{category.title}</h3>
-              <p>by {category.count} Colleges</p>
-            </div>
-          </div>
-        ))}
-        <div className="more-categories">+30 more</div>
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

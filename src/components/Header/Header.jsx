@@ -1,7 +1,5 @@
-import React from 'react';
 import './Header.css';
 import { ArrowRight } from 'lucide-react';
-import girlpic from '../../assets/girl.png';
 
 const Header = () => {
   return (
@@ -13,7 +11,7 @@ const Header = () => {
             Your <span className="highlight">Dream</span> College
           </h1>
           <p className="header-subtitle">
-            "Personalized college search at your fingertips."
+            Personalized college search at your fingertips.
           </p>
           <button className="explore-button">
             Start your exploration <ArrowRight size={20} />
@@ -28,7 +26,7 @@ const Header = () => {
                 <span className="user-city">Mumbai</span>
               </div>
               <div className="rating">★★★★★</div>
-              <p className="testimonial-text">Thanks a lot CampusSpot!!!"</p>
+              <p className="testimonial-text">Thanks a lot CampusSpot!!!</p>
             </div>
 
             <div className="testimonial-card middle">
@@ -37,7 +35,7 @@ const Header = () => {
                 <span className="user-city">Gujarat</span>
               </div>
               <div className="rating">★★★★</div>
-              <p className="testimonial-text">"I got into my dream college because of CampusSpot 🌟"</p>
+              <p className="testimonial-text">I got into my dream college because of CampusSpot 🌟</p>
             </div>
 
             <div className="testimonial-card bottom">
@@ -46,7 +44,7 @@ const Header = () => {
                 <span className="user-city">Hyderabad</span>
               </div>
               <div className="rating">★★★★</div>
-              <p className="testimonial-text">"CampusSpot helped me to my the perfect college for me"</p>
+              <p className="testimonial-text">CampusSpot helped me to my the perfect college for me</p>
             </div>
           </div>
         </div>
